@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"strings"
 
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -79,20 +78,6 @@ func sqlMigration() {
 	}
 	defer db.Close()
 
-	var sqlQuerys = strings.Split(string(content), ";")
-
-	statement, err := db.Prepare(sqlQuerys[0])
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer statement.Close()
-	statement.Exec()
-
-	statement, err = db.Prepare(sqlQuerys[1])
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer statement.Close()
-	statement.Exec("Jose Diaz", "Admin")
+	db.Exec(string(content))
 
 }
