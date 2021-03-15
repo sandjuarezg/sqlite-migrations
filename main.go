@@ -78,6 +78,8 @@ func sqlMigration() {
 	}
 	defer db.Close()
 
-	db.Exec(string(content))
-
+	_, err = db.Exec(string(content))
+	if err != nil {
+		log.Fatal(err)
+	}
 }
